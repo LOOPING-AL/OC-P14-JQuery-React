@@ -17,13 +17,17 @@
       "jsx": true
     },
     "ecmaVersion": "latest",
-    "sourceType": "module"
+    "sourceType": "module",
+    "project": "./tsconfig.json"
   },
   "plugins": ["react", "@typescript-eslint", "prettier"],
   "rules": {
-    "react/react-in-jsx-scope": ["off"],
-    "react/jsx-uses-react": ["off"],
-    "react/jsx-props-no-spreading": ["warn"],
-    "react/no-unescaped-entities": ["off"]
+    "react/function-component-definition": 0,
+    "import/prefer-default-export": 0,
+    "operator-linebreak": 0,
+    "implicit-arrow-linebreak": 0,
+    "comma-dangle": 0,
+    "@typescript-eslint/comma-dangle": 0,
+    "object-curly-newline": 0
   }
 }
