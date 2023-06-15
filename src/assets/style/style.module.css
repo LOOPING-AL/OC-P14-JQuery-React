@@ -31,7 +31,6 @@ select {
 
 .container {
   font-family: Roboto;
-  width: 550px;
   background-color: #93ad18;
   display: flex;
   flex-direction: column;
@@ -39,16 +38,20 @@ select {
   justify-content: center;
   padding-top: 10px;
   padding-bottom: 10px;
-  border-radius: 0 0 10px 10px;
+  padding-left: 50px;
+  padding-right: 50px;
+  border-radius: 10px;
 }
 
 .link {
   color: #6d8410;
   background-color: white;
-  padding: 5px;
+  padding: 10px;
   height: 20px;
   border-radius: 20px;
   text-decoration: none;
+  border: solid;
+  border-width: 2px;
   box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px,
     rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
     rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
@@ -85,6 +88,7 @@ label {
   color: white;
 }
 
-.button{
-  
+.table {
+  display: flex;
+  gap: 50px;
 }

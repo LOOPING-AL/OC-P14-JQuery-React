@@ -1,2 +1,2 @@
-export { default as InputText } from './textInput/TextInput';
-export { default as InputDate } from './dateInput/DateInput';
+export { default as MainDateTimeInput } from './dateInput/MainDateTimeInput';
+export { default as TextInput } from './textInput/TextInput';

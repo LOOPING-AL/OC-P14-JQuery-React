@@ -5,7 +5,8 @@ import {
   states,
   style,
 } from '../../assets';
-import { InputText, Header, InputDate } from '../../components';
+import { TextInput, Header, MainDateTimeInput } from '../../components';
+import { Type } from '../../components/inputs/dateInput/enums';
 import SelectInput from '../../components/inputs/selectInput/SelectInput';
 import { Pages, Form, ErrorMessage } from '../../ts';
 import { checkAll } from '../../utils/form';
@@ -60,24 +61,27 @@ const Home = () => {
           className={style.form}
         >
           <div className={style.formInputLine}>
-            <InputText
+            <TextInput
               id="firstName"
               label="First Name"
               errorMessage={errorMessage?.firstNameErrorMessage}
             />
-            <InputText
+            <TextInput
               id="lastName"
               label="Last Name"
               errorMessage={errorMessage?.lastNameErrorMessage}
             />
           </div>
           <div className={style.formInputLine}>
-            <InputDate
+            <MainDateTimeInput
+              type={Type.DATE}
               id="dateOfBirth"
               label="Date of Birth"
+              minTime="12:12"
               errorMessage={errorMessage?.lastNameErrorMessage}
             />
-            <InputDate
+            <MainDateTimeInput
+              type={Type.DATETIME}
               id="startDate"
               label="Start Date"
               errorMessage={errorMessage?.lastNameErrorMessage}
@@ -87,12 +91,12 @@ const Home = () => {
           <fieldset className={style.address}>
             <legend className={style.legend}>Address</legend>
             <div className={style.formInputLine}>
-              <InputText
+              <TextInput
                 id="street"
                 label="Street"
                 errorMessage={errorMessage?.streetErrorMessage}
               />
-              <InputText
+              <TextInput
                 id="city"
                 label="City"
                 errorMessage={errorMessage?.cityErrorMessage}
@@ -107,7 +111,7 @@ const Home = () => {
                 )}
               />
 
-              <InputText
+              <TextInput
                 id="zipCode"
                 label="Zip Code"
                 errorMessage={errorMessage?.zipCodeErrorMessage}
