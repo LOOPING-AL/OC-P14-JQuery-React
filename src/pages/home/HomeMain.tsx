@@ -13,9 +13,20 @@ import Modal from '../../components/modal/Modal';
 import { ErrorMessage, Form, Pages } from '../../ts';
 import { checkAll } from '../../utils/form';
 
-const Home = () => {
+const initialErrorMessage: ErrorMessage = {
+  cityErrorMessage: '',
+  dateOFBirthErrorMessage: '',
+  firstNameErrorMessage: '',
+  lastNameErrorMessage: '',
+  startDateErrorMessage: '',
+  streetErrorMessage: '',
+  zipCodeErrorMessage: '',
+};
+
+const HomeMain = () => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [errorMessage, setErrorMessage] = useState<ErrorMessage>();
+  const [errorMessage, setErrorMessage] =
+    useState<ErrorMessage>(initialErrorMessage);
 
   const handleSubmit = (e: React.FormEvent<Form>) => {
     e.preventDefault();
@@ -37,19 +48,30 @@ const Home = () => {
       city,
       dateOfBirth,
       startDate,
-      state,
-      department,
       zipCode,
     });
     setErrorMessage(checkAllErrorMessage);
 
-    const isOkay = Object.keys(checkAllErrorMessage).every(
+    const allInputIsGood = Object.keys(checkAllErrorMessage).every(
       (key) => checkAllErrorMessage[key as keyof ErrorMessage] === ''
     );
 
-    if (isOkay) {
+    if (allInputIsGood) {
       setModalOpen(true);
     }
+
+    // eslint-disable-next-line no-console
+    console.log({
+      firstName,
+      lastName,
+      street,
+      city,
+      dateOfBirth,
+      startDate,
+      zipCode,
+      state,
+      department,
+    });
   };
 
   return (
@@ -73,24 +95,27 @@ const Home = () => {
               label="First Name"
               errorMessage={errorMessage?.firstNameErrorMessage}
             />
+
             <TextInput
               id="lastName"
               label="Last Name"
               errorMessage={errorMessage?.lastNameErrorMessage}
             />
           </div>
+
           <div className={style.formInputLine}>
             <MainDateTimeInput
               type={Type.DATE}
               id="dateOfBirth"
               label="Date of Birth"
-              errorMessage={errorMessage?.lastNameErrorMessage}
+              errorMessage={errorMessage?.dateOFBirthErrorMessage}
             />
+
             <MainDateTimeInput
               type={Type.DATETIME}
               id="startDate"
               label="Start Date"
-              errorMessage={errorMessage?.lastNameErrorMessage}
+              errorMessage={errorMessage?.startDateErrorMessage}
             />
           </div>
 
@@ -102,6 +127,7 @@ const Home = () => {
                 label="Street"
                 errorMessage={errorMessage?.streetErrorMessage}
               />
+
               <TextInput
                 id="city"
                 label="City"
@@ -144,4 +170,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomeMain;

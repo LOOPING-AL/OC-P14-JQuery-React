@@ -1,21 +1,29 @@
 import style from './TextInput.module.css';
 
+const defaultProps = { label: undefined, errorMessage: undefined };
+
 const InputText = ({
   id,
   label,
   errorMessage,
 }: {
   id: string;
-  label: string;
-  errorMessage: string | undefined;
+  label?: string;
+  errorMessage?: string;
 }) => (
   <div>
-    <label className={style.label} htmlFor={id}>
-      {label}
-    </label>
+    {label && (
+      <label className={style.label} htmlFor={id}>
+        {label}
+      </label>
+    )}
     <input className={style.input} type="text" id={id} />
-    <p className={style.errorMessage}>{errorMessage}</p>
+    {typeof errorMessage === 'string' && (
+      <p className={style.errorMessage}>{errorMessage}</p>
+    )}
   </div>
 );
+
+InputText.defaultProps = defaultProps;
 
 export default InputText;

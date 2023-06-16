@@ -47,7 +47,7 @@ const Modal = ({
         </button>
         <div className={style.text}>
           <h2 className={style.title}>{title}</h2>
-          {information ?? <p>{information}</p>}
+          {information && <p>{information}</p>}
         </div>
       </div>
     </div>

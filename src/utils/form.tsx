@@ -8,7 +8,7 @@ export const testName = (formInput: string) => {
 
   let message = '';
 
-  if (!/^[A-ZÀ-Þ][a-zA-Z\u00C0-\u017F'-]{1,}$/.test(formInput)) {
+  if (!/^[A-ZÀ-Þ][a-zA-Z\u00C0-\u017F'-\s]{1,}$/.test(formInput)) {
     message = 'Can you';
     if (!/^[A-ZÀ-Þ]+/g.test(formInput)) {
       message += ', put a capital letter at the beginning';
@@ -16,7 +16,7 @@ export const testName = (formInput: string) => {
     if (!/.{2,}/g.test(formInput)) {
       message += ', minimum two letters';
     }
-    if (!/^[A-Za-z\u00C0-\u017F'-]+$/.test(formInput)) {
+    if (!/^[A-Za-z\u00C0-\u017F'-\s]+$/.test(formInput)) {
       message += ", that these special characters ('-)";
     }
   }
@@ -69,10 +69,8 @@ export const checkAll = ({
   firstName,
   lastName,
   street,
-  // dateOfBirth,
-  // department,
-  // startDate,
-  // state,
+  dateOfBirth,
+  startDate,
   zipCode,
 }: CheckAllProps) => {
   const firstNameErrorMessage = testName(firstName);
@@ -80,6 +78,8 @@ export const checkAll = ({
   const streetErrorMessage = testName(street);
   const cityErrorMessage = testName(city);
   const zipCodeErrorMessage = testZipCode(zipCode);
+  const dateOFBirthErrorMessage = isEmpty(dateOfBirth) ? isEmptyMessage : '';
+  const startDateErrorMessage = isEmpty(startDate) ? isEmptyMessage : '';
 
   return {
     firstNameErrorMessage,
@@ -87,5 +87,7 @@ export const checkAll = ({
     streetErrorMessage,
     cityErrorMessage,
     zipCodeErrorMessage,
+    dateOFBirthErrorMessage,
+    startDateErrorMessage,
   };
 };

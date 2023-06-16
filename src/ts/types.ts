@@ -21,9 +21,7 @@ export interface CheckAllProps {
   startDate: string;
   street: string;
   city: string;
-  state: string;
   zipCode: string;
-  department: string;
 }
 export interface ErrorMessage {
   firstNameErrorMessage: string;
@@ -31,4 +29,6 @@ export interface ErrorMessage {
   streetErrorMessage: string;
   cityErrorMessage: string;
   zipCodeErrorMessage: string;
+  dateOFBirthErrorMessage: string;
+  startDateErrorMessage: string;
 }
