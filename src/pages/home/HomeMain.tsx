@@ -5,10 +5,12 @@ import {
   states,
   style,
 } from '../../assets';
-import { TextInput, Header, MainDateTimeInput } from '../../components';
+import { Header, MainDateTimeInput, TextInput } from '../../components';
+import Button from '../../components/button/Button';
 import { Type } from '../../components/inputs/dateTimeInput/enums';
 import SelectInput from '../../components/inputs/selectInput/SelectInput';
-import { Pages, Form, ErrorMessage } from '../../ts';
+import Modal from '../../components/modal/Modal';
+import { ErrorMessage, Form, Pages } from '../../ts';
 import { checkAll } from '../../utils/form';
 
 const Home = () => {
@@ -28,21 +30,26 @@ const Home = () => {
     const zipCode = e.currentTarget.elements.zipCode.value;
     const department = e.currentTarget.elements.department.value;
 
-    setErrorMessage(
-      checkAll({
-        firstName,
-        lastName,
-        street,
-        city,
-        dateOfBirth,
-        startDate,
-        state,
-        department,
-        zipCode,
-      })
+    const checkAllErrorMessage = checkAll({
+      firstName,
+      lastName,
+      street,
+      city,
+      dateOfBirth,
+      startDate,
+      state,
+      department,
+      zipCode,
+    });
+    setErrorMessage(checkAllErrorMessage);
+
+    const isOkay = Object.keys(checkAllErrorMessage).every(
+      (key) => checkAllErrorMessage[key as keyof ErrorMessage] === ''
     );
 
-    setModalOpen(!modalOpen);
+    if (isOkay) {
+      setModalOpen(true);
+    }
   };
 
   return (
@@ -124,14 +131,15 @@ const Home = () => {
             options={departmentInformations}
           />
 
-          <button className={style.button} type="submit">
-            Save
-          </button>
+          <Button label="Save" isSubmit />
         </form>
       </div>
-      {/* <div id="confirmation" className={style.modal}>
-        Employee Created!
-      </div> */}
+
+      <Modal
+        open={modalOpen}
+        handleClose={() => setModalOpen(false)}
+        title="Employee Created!"
+      />
     </div>
   );
 };

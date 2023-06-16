@@ -32,5 +32,3 @@ export interface ErrorMessage {
   cityErrorMessage: string;
   zipCodeErrorMessage: string;
 }
-
-

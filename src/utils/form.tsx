@@ -28,7 +28,6 @@ const dayDiff = (d1: Date, d2: Date) =>
   Math.ceil((Number(d1) - Number(d2)) / (1000 * 60 * 60 * 24));
 
 export const testDate = (formInput: string) => {
-  console.log(formInput);
   if (isEmpty(formInput)) return isEmptyMessage;
 
   let message = '';
