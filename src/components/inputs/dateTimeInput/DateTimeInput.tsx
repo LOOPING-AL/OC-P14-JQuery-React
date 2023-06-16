@@ -1,5 +1,6 @@
 import style from './DateInput.module.css';
-import { defaultDateTimeProps } from './defaultProps';
+import { defaultProps } from './defaultProps';
+import { Type } from './enums';
 import { DateTimeInputProps } from './types';
 
 const DateTimeInput = ({
@@ -9,32 +10,29 @@ const DateTimeInput = ({
   maxTime,
   minTime,
   required,
-  type,
 }: DateTimeInputProps) => (
-  <>
+  <div className={style.inputDateAndTime}>
     <input
-      className={style.input}
-      type={type}
+      className={style.inputDateOrTime}
+      type={Type.DATE}
       id={id}
       min={minDate}
       max={maxDate}
       required={required}
-      placeholder="dd/mm/yyyy"
       pattern="\d{4}-\d{2}-\d{2}"
     />
     <input
-      className={style.input}
-      type={type}
+      className={style.inputDateOrTime}
+      type={Type.TIME}
       id={id}
       min={minTime}
       max={maxTime}
       required={required}
-      placeholder="dd/mm/yyyy"
-      pattern="\d{4}-\d{2}-\d{2}"
+      pattern="\d{2}:\d{2}"
     />
-  </>
+  </div>
 );
 
-DateTimeInput.defaultProps = defaultDateTimeProps;
+DateTimeInput.defaultProps = defaultProps;
 
 export default DateTimeInput;

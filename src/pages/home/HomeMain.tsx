@@ -6,7 +6,7 @@ import {
   style,
 } from '../../assets';
 import { TextInput, Header, MainDateTimeInput } from '../../components';
-import { Type } from '../../components/inputs/dateInput/enums';
+import { Type } from '../../components/inputs/dateTimeInput/enums';
 import SelectInput from '../../components/inputs/selectInput/SelectInput';
 import { Pages, Form, ErrorMessage } from '../../ts';
 import { checkAll } from '../../utils/form';
@@ -77,7 +77,6 @@ const Home = () => {
               type={Type.DATE}
               id="dateOfBirth"
               label="Date of Birth"
-              minTime="12:12"
               errorMessage={errorMessage?.lastNameErrorMessage}
             />
             <MainDateTimeInput

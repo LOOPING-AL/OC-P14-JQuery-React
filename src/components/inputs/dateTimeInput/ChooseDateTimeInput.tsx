@@ -16,14 +16,11 @@ const ChooseDateTimeInput = ({
 }: DateTimeInputProps) => {
   if (type === Type.TIME) {
     return (
-      <DateTimeInput
+      <TimeInput
         id={id}
-        minDate={minDate}
-        maxDate={maxDate}
-        required={required}
         minTime={minTime}
         maxTime={maxTime}
-        type={Type.TIME}
+        required={required}
       />
     );
   }
@@ -31,20 +28,20 @@ const ChooseDateTimeInput = ({
     return (
       <DateInput
         id={id}
-        required={required}
-        type={Type.DATE}
         minDate={minDate}
         maxDate={maxDate}
+        required={required}
       />
     );
   }
   return (
-    <TimeInput
+    <DateTimeInput
       id={id}
-      required={required}
-      type={Type.TIME}
+      minDate={minDate}
+      maxDate={maxDate}
       minTime={minTime}
       maxTime={maxTime}
+      required={required}
     />
   );
 };

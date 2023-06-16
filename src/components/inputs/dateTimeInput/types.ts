@@ -52,8 +52,8 @@ export type DateTimeInputProps = {
   maxTime?: RawTimeString;
 } & ChooseDateTimeInputProps;
 
-type ChooseDateTimeInputProps = {
-  type: Type;
+export type ChooseDateTimeInputProps = {
+  type?: Type;
   id: string;
   required?: boolean;
 };
