@@ -13,6 +13,10 @@ const ChooseDateTimeInput = ({
   maxTime,
   required,
   type,
+  valueDate,
+  valueTime,
+  handleChangeDate,
+  handleChangeTime,
 }: DateTimeInputProps) => {
   if (type === Type.TIME) {
     return (
@@ -21,6 +25,8 @@ const ChooseDateTimeInput = ({
         minTime={minTime}
         maxTime={maxTime}
         required={required}
+        value={valueTime}
+        handleChangeTime={handleChangeTime}
       />
     );
   }
@@ -31,6 +37,8 @@ const ChooseDateTimeInput = ({
         minDate={minDate}
         maxDate={maxDate}
         required={required}
+        value={valueDate}
+        handleChangeDate={handleChangeDate}
       />
     );
   }
@@ -42,6 +50,10 @@ const ChooseDateTimeInput = ({
       minTime={minTime}
       maxTime={maxTime}
       required={required}
+      valueDate={valueDate}
+      valueTime={valueTime}
+      handleChangeDate={handleChangeDate}
+      handleChangeTime={handleChangeTime}
     />
   );
 };

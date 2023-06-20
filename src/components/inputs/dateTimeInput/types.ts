@@ -38,11 +38,15 @@ export type MainDateTimeInputProps = {
 export type DateInputProps = {
   minDate?: RawDateString;
   maxDate?: RawDateString;
+  valueDate?: string;
+  handleChangeDate?: (value: string) => void;
 } & ChooseDateTimeInputProps;
 
 export type TimeInputProps = {
   minTime?: RawTimeString;
   maxTime?: RawTimeString;
+  valueTime?: string;
+  handleChangeTime?: (value: string) => void;
 } & ChooseDateTimeInputProps;
 
 export type DateTimeInputProps = {
@@ -50,6 +54,10 @@ export type DateTimeInputProps = {
   maxDate?: RawDateString;
   minTime?: RawTimeString;
   maxTime?: RawTimeString;
+  valueDate?: string;
+  valueTime?: string;
+  handleChangeDate?: (value: string) => void;
+  handleChangeTime?: (value: string) => void;
 } & ChooseDateTimeInputProps;
 
 export type ChooseDateTimeInputProps = {

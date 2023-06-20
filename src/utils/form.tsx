@@ -1,4 +1,4 @@
-import { CheckAllProps } from '../ts';
+import { FormI } from '../ts';
 
 const isEmpty = (formInput: string) => formInput === '';
 const isEmptyMessage = 'The field is mandatory';
@@ -72,13 +72,13 @@ export const checkAll = ({
   dateOfBirth,
   startDate,
   zipCode,
-}: CheckAllProps) => {
+}: FormI) => {
   const firstNameErrorMessage = testName(firstName);
   const lastNameErrorMessage = testName(lastName);
   const streetErrorMessage = testName(street);
   const cityErrorMessage = testName(city);
   const zipCodeErrorMessage = testZipCode(zipCode);
-  const dateOFBirthErrorMessage = isEmpty(dateOfBirth) ? isEmptyMessage : '';
+  const dateOfBirthErrorMessage = isEmpty(dateOfBirth) ? isEmptyMessage : '';
   const startDateErrorMessage = isEmpty(startDate) ? isEmptyMessage : '';
 
   return {
@@ -87,7 +87,7 @@ export const checkAll = ({
     streetErrorMessage,
     cityErrorMessage,
     zipCodeErrorMessage,
-    dateOFBirthErrorMessage,
+    dateOfBirthErrorMessage,
     startDateErrorMessage,
   };
 };

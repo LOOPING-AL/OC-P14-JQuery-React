@@ -5,4 +5,5 @@ export const defaultProps = {
   maxTime: '18:00',
   required: false,
   type: 'date',
+  value: '',
 };

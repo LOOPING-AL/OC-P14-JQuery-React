@@ -37,7 +37,7 @@ const Modal = ({
       role="button"
       tabIndex={0}
     >
-      <div className={style.modalContent}>
+      <dialog className={style.modalContent} open={openModal}>
         <button
           type="button"
           className={style.close}
@@ -49,7 +49,7 @@ const Modal = ({
           <h2 className={style.title}>{title}</h2>
           {information && <p>{information}</p>}
         </div>
-      </div>
+      </dialog>
     </div>
   );
 };

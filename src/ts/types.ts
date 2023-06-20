@@ -14,7 +14,7 @@ export interface Form extends HTMLFormElement {
   readonly elements: FormElements;
 }
 
-export interface CheckAllProps {
+export interface FormI {
   firstName: string;
   lastName: string;
   dateOfBirth: string;
@@ -22,6 +22,8 @@ export interface CheckAllProps {
   street: string;
   city: string;
   zipCode: string;
+  department: string;
+  state: string;
 }
 export interface ErrorMessage {
   firstNameErrorMessage: string;
@@ -29,6 +31,6 @@ export interface ErrorMessage {
   streetErrorMessage: string;
   cityErrorMessage: string;
   zipCodeErrorMessage: string;
-  dateOFBirthErrorMessage: string;
+  dateOfBirthErrorMessage: string;
   startDateErrorMessage: string;
 }

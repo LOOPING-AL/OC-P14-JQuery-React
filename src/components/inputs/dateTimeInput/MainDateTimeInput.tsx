@@ -1,6 +1,6 @@
 import ChooseDateTimeInput from './ChooseDateTimeInput';
-import style from './DateInput.module.css';
 import { defaultProps } from './defaultProps';
+import style from './MainDateTimeInput.module.css';
 import { DateTimeInputProps, MainDateTimeInputProps } from './types';
 
 const MainDateTimeInput = ({
@@ -13,6 +13,10 @@ const MainDateTimeInput = ({
   minDate,
   minTime,
   maxTime,
+  valueDate,
+  valueTime,
+  handleChangeDate,
+  handleChangeTime,
 }: DateTimeInputProps & MainDateTimeInputProps) => (
   <div>
     <label className={style.label} htmlFor={id}>
@@ -26,6 +30,10 @@ const MainDateTimeInput = ({
       maxDate={maxDate}
       minTime={minTime}
       maxTime={maxTime}
+      valueDate={valueDate}
+      valueTime={valueTime}
+      handleChangeDate={handleChangeDate}
+      handleChangeTime={handleChangeTime}
     />
     <p className={style.errorMessage}>{errorMessage}</p>
   </div>

@@ -5,50 +5,62 @@ import {
   states,
   style,
 } from '../../assets';
-import { Header, MainDateTimeInput, TextInput } from '../../components';
-import Button from '../../components/button/Button';
+import {
+  Button,
+  Header,
+  MainDateTimeInput,
+  Modal,
+  SelectInput,
+  TextInput,
+} from '../../components';
 import { Type } from '../../components/inputs/dateTimeInput/enums';
-import SelectInput from '../../components/inputs/selectInput/SelectInput';
-import Modal from '../../components/modal/Modal';
-import { ErrorMessage, Form, Pages } from '../../ts';
+import { ErrorMessage, Form, FormI, Id, Label, Pages } from '../../ts';
 import { checkAll } from '../../utils/form';
 
 const initialErrorMessage: ErrorMessage = {
   cityErrorMessage: '',
-  dateOFBirthErrorMessage: '',
+  dateOfBirthErrorMessage: '',
   firstNameErrorMessage: '',
   lastNameErrorMessage: '',
   startDateErrorMessage: '',
   streetErrorMessage: '',
   zipCodeErrorMessage: '',
 };
+const initialValue: FormI = {
+  city: '',
+  dateOfBirth: '',
+  firstName: '',
+  lastName: '',
+  startDate: '',
+  street: '',
+  zipCode: '',
+  department: '',
+  state: '',
+};
 
 const HomeMain = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [errorMessage, setErrorMessage] =
     useState<ErrorMessage>(initialErrorMessage);
+  const [values, setValues] = useState<FormI>(initialValue);
+
+  const initializeForm = () => {
+    setValues(initialValue);
+  };
 
   const handleSubmit = (e: React.FormEvent<Form>) => {
     e.preventDefault();
 
-    const firstName = e.currentTarget.elements.firstName.value;
-    const lastName = e.currentTarget.elements.lastName.value;
-    const dateOfBirth = e.currentTarget.elements.dateOfBirth.value;
-    const startDate = e.currentTarget.elements.startDate.value;
-    const street = e.currentTarget.elements.street.value;
-    const city = e.currentTarget.elements.city.value;
-    const state = e.currentTarget.elements.state.value;
-    const zipCode = e.currentTarget.elements.zipCode.value;
-    const department = e.currentTarget.elements.department.value;
-
     const checkAllErrorMessage = checkAll({
-      firstName,
-      lastName,
-      street,
-      city,
-      dateOfBirth,
-      startDate,
-      zipCode,
+      firstName: values.firstName,
+      lastName: values.lastName,
+      street: values.street,
+      city: values.city,
+      dateOfBirth: values.dateOfBirth,
+      startDate: values.startDate,
+      zipCode: values.zipCode,
+      department: values.department,
+      state: values.state,
     });
     setErrorMessage(checkAllErrorMessage);
 
@@ -58,20 +70,26 @@ const HomeMain = () => {
 
     if (allInputIsGood) {
       setModalOpen(true);
+      initializeForm();
     }
 
     // eslint-disable-next-line no-console
     console.log({
-      firstName,
-      lastName,
-      street,
-      city,
-      dateOfBirth,
-      startDate,
-      zipCode,
-      state,
-      department,
+      firstName: values.firstName,
+      lastName: values.lastName,
+      street: values.street,
+      city: values.city,
+      dateOfBirth: values.dateOfBirth,
+      startDate: values.startDate,
+      zipCode: values.zipCode,
+      department: values.department,
+      state: values.state,
     });
+  };
+
+  const handleChange = (key: Id, value: string) => {
+    const updatedValue = { [key]: value };
+    setValues((val) => ({ ...val, ...updatedValue }));
   };
 
   return (
@@ -84,38 +102,42 @@ const HomeMain = () => {
 
         <h1 className={style.title}>Form</h1>
 
-        <form
-          id="create-employee"
-          onSubmit={handleSubmit}
-          className={style.form}
-        >
+        <form onSubmit={handleSubmit} className={style.form}>
           <div className={style.formInputLine}>
             <TextInput
-              id="firstName"
-              label="First Name"
+              id={Id.FirstName}
+              label={Label.FirstName}
               errorMessage={errorMessage?.firstNameErrorMessage}
+              value={values.firstName}
+              handleChange={(value) => handleChange(Id.FirstName, value)}
             />
 
             <TextInput
-              id="lastName"
-              label="Last Name"
+              id={Id.LastName}
+              label={Label.LastName}
               errorMessage={errorMessage?.lastNameErrorMessage}
+              value={values.lastName}
+              handleChange={(value) => handleChange(Id.LastName, value)}
             />
           </div>
 
           <div className={style.formInputLine}>
             <MainDateTimeInput
               type={Type.DATE}
-              id="dateOfBirth"
-              label="Date of Birth"
-              errorMessage={errorMessage?.dateOFBirthErrorMessage}
+              id={Id.DateOfBirth}
+              label={Label.DateOfBirth}
+              errorMessage={errorMessage?.dateOfBirthErrorMessage}
+              value={values.dateOfBirth}
+              handleChangeDate={(value) => handleChange(Id.DateOfBirth, value)}
             />
 
             <MainDateTimeInput
-              type={Type.DATETIME}
-              id="startDate"
-              label="Start Date"
+              type={Type.DATE}
+              id={Id.StartDate}
+              label={Label.StartDate}
               errorMessage={errorMessage?.startDateErrorMessage}
+              value={values.startDate}
+              handleChangeDate={(value) => handleChange(Id.StartDate, value)}
             />
           </div>
 
@@ -123,38 +145,47 @@ const HomeMain = () => {
             <legend className={style.legend}>Address</legend>
             <div className={style.formInputLine}>
               <TextInput
-                id="street"
-                label="Street"
+                id={Id.Street}
+                label={Label.Street}
                 errorMessage={errorMessage?.streetErrorMessage}
+                value={values.street}
+                handleChange={(value) => handleChange(Id.Street, value)}
               />
 
               <TextInput
-                id="city"
-                label="City"
+                id={Id.City}
+                label={Label.City}
                 errorMessage={errorMessage?.cityErrorMessage}
+                value={values.city}
+                handleChange={(value) => handleChange(Id.City, value)}
               />
             </div>
             <div className={style.formInputLine}>
               <SelectInput
-                id="state"
-                label="State"
+                id={Id.State}
+                label={Label.State}
                 options={states.map(
                   (state) => `${state.abbreviation}, ${state.name}`
                 )}
+                handleChange={(value) => handleChange(Id.State, value)}
               />
 
               <TextInput
-                id="zipCode"
-                label="Zip Code"
+                id={Id.ZipCode}
+                label={Label.ZipCode}
                 errorMessage={errorMessage?.zipCodeErrorMessage}
+                value={values.zipCode}
+                handleChange={(value) => handleChange(Id.ZipCode, value)}
               />
             </div>
           </fieldset>
 
           <SelectInput
-            id="department"
-            label="Department"
+            id={Id.Department}
+            label={Label.Department}
             options={departmentInformations}
+            value={values.department}
+            handleChange={(value) => handleChange(Id.Department, value)}
           />
 
           <Button label="Save" isSubmit />

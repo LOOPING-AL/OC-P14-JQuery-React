@@ -1,6 +1,6 @@
-import style from './DateInput.module.css';
 import { defaultProps } from './defaultProps';
 import { Type } from './enums';
+import style from './MainDateTimeInput.module.css';
 import { DateTimeInputProps } from './types';
 
 const DateTimeInput = ({
@@ -10,6 +10,10 @@ const DateTimeInput = ({
   maxTime,
   minTime,
   required,
+  valueDate,
+  valueTime,
+  handleChangeDate,
+  handleChangeTime,
 }: DateTimeInputProps) => (
   <div className={style.inputDateAndTime}>
     <input
@@ -20,6 +24,8 @@ const DateTimeInput = ({
       max={maxDate}
       required={required}
       pattern="\d{4}-\d{2}-\d{2}"
+      value={valueDate}
+      onChange={(e) => handleChangeDate && handleChangeDate(e.target.value)}
     />
     <input
       className={style.inputDateOrTime}
@@ -29,6 +35,8 @@ const DateTimeInput = ({
       max={maxTime}
       required={required}
       pattern="\d{2}:\d{2}"
+      value={valueTime}
+      onChange={(e) => handleChangeTime && handleChangeTime(e.target.value)}
     />
   </div>
 );
