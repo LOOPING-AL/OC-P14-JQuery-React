@@ -1,5 +1,5 @@
 import ChooseDateTimeInput from './ChooseDateTimeInput';
-import { defaultProps } from './defaultProps';
+import defaultProps from './defaultProps';
 import style from './MainDateTimeInput.module.css';
 import { DateTimeInputProps, MainDateTimeInputProps } from './types';
 

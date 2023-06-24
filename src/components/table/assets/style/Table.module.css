@@ -1,19 +1,28 @@
 .tableButton {
   font-family: Roboto;
-  background-color: white;
-  border: 1px solid #6d8410;
+  background-color: #6d8410;
+  color: white;
+  border: none;
   border-radius: 3px;
   width: 70px;
   height: 30px;
 }
 
+.tableButton:disabled {
+  color: grey;
+  background-color: #bacc72;
+}
+.tableButtonText {
+  font-size: 14px;
+}
+
 .tableHeader {
   display: flex;
   justify-content: space-between;
-  width: 100%;
   margin-bottom: 10px;
 }
 .tableHeaderPart {
+  width: 100%;
   color: white;
   display: flex;
   align-items: center;
@@ -30,6 +39,17 @@
 .table th {
   border: 1px solid #ddd;
   padding: 8px;
+}
+
+.table tr {
+  height: 55px;
+}
+.table th {
+  height: 10px;
+}
+
+.table th:hover {
+  cursor: pointer;
 }
 
 .table tr:nth-child(2n) {
@@ -49,4 +69,20 @@
   text-align: left;
   background-color: #93ad18;
   color: white;
+}
+
+.columnHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.caret {
+  width: 15px;
+  color: white;
+  filter: invert(100%) sepia(100%) saturate(0%) hue-rotate(187deg)
+    brightness(104%) contrast(102%);
+}
+.caretDown {
+  rotate: 180deg;
 }

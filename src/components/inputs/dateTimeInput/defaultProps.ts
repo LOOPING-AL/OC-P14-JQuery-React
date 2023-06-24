@@ -1,4 +1,4 @@
-export const defaultProps = {
+const defaultProps = {
   minDate: '1900-01-01',
   maxDate: new Date().toISOString().split('T')[0],
   minTime: '08:00',
@@ -7,3 +7,4 @@ export const defaultProps = {
   type: 'date',
   value: '',
 };
+export default defaultProps;

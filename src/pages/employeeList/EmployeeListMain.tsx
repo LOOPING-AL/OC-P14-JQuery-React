@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { style, employees } from '../../assets';
+import { style, employees, columnNameAndOrderToShow } from '../../assets';
 import { Header, Table } from '../../components';
 import { Pages } from '../../ts/enums';
 
@@ -14,7 +14,10 @@ const EmployeeList = () => (
 
       <h1 className={style.title}>Current Employees</h1>
 
-      <Table table={employees} />
+      <Table
+        table={employees}
+        columnNameAndOrderToShow={columnNameAndOrderToShow}
+      />
     </div>
   </div>
 );

@@ -132,7 +132,7 @@ const HomeMain = () => {
             />
 
             <MainDateTimeInput
-              type={Type.DATE}
+              type={Type.DATETIME}
               id={Id.StartDate}
               label={Label.StartDate}
               errorMessage={errorMessage?.startDateErrorMessage}

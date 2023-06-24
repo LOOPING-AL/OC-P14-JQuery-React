@@ -1,5 +1,3 @@
-import { Type } from './enums';
-
 type OneToNine = 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 type ZeroToNine = 0 | 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9;
 type ZeroToFive = 0 | 1 | 2 | 3 | 4 | 5;
@@ -61,7 +59,7 @@ export type DateTimeInputProps = {
 } & ChooseDateTimeInputProps;
 
 export type ChooseDateTimeInputProps = {
-  type?: Type;
+  type?: 'date' | 'time' | 'datetime';
   id: string;
   required?: boolean;
 };

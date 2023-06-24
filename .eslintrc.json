@@ -23,7 +23,6 @@
   "plugins": ["react", "@typescript-eslint", "prettier"],
   "rules": {
     "react/function-component-definition": 0,
-    "import/prefer-default-export": 0,
     "operator-linebreak": 0,
     "implicit-arrow-linebreak": 0,
     "comma-dangle": 0,
@@ -33,6 +32,7 @@
     "indent": 0,
     "@typescript-eslint/indent": 0,
     "multiline": 0,
-    "singleline": 0
+    "singleline": 0,
+    "nonblock-statement-body-position": 0
   }
 }

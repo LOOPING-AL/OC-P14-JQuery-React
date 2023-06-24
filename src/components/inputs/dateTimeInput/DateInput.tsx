@@ -1,4 +1,4 @@
-import { defaultProps } from './defaultProps';
+import defaultProps from './defaultProps';
 import { Type } from './enums';
 import style from './MainDateTimeInput.module.css';
 import { DateInputProps } from './types';

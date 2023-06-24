@@ -1,7 +1,6 @@
 import DateInput from './DateInput';
 import DateTimeInput from './DateTimeInput';
-import { defaultProps } from './defaultProps';
-import { Type } from './enums';
+import defaultProps from './defaultProps';
 import TimeInput from './TimeInput';
 import { DateTimeInputProps } from './types';
 
@@ -18,7 +17,7 @@ const ChooseDateTimeInput = ({
   handleChangeDate,
   handleChangeTime,
 }: DateTimeInputProps) => {
-  if (type === Type.TIME) {
+  if (type === 'time') {
     return (
       <TimeInput
         id={id}
@@ -30,7 +29,7 @@ const ChooseDateTimeInput = ({
       />
     );
   }
-  if (type === Type.DATE) {
+  if (type === 'date') {
     return (
       <DateInput
         id={id}
