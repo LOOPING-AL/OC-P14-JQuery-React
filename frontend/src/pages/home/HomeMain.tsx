@@ -13,7 +13,7 @@ import {
   SelectInput,
   TextInput,
 } from '../../components';
-import { Type } from '../../components/inputs/dateTimeInput/enums';
+import Type from '../../components/inputs/dateTimeInput/enums';
 import { ErrorMessage, Form, FormI, Id, Label, Pages } from '../../ts';
 import { checkAll } from '../../utils/form';
 

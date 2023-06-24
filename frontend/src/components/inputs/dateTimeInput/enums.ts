@@ -1,5 +1,7 @@
-export enum Type {
+enum Type {
   DATE = 'date',
   DATETIME = 'datetime',
   TIME = 'time',
 }
+
+export default Type;
