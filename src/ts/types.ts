@@ -14,7 +14,7 @@ export interface Form extends HTMLFormElement {
   readonly elements: FormElements;
 }
 
-export interface FormI {
+export interface Employee {
   firstName: string;
   lastName: string;
   dateOfBirth: string;

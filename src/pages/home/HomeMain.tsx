@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
   department as departmentInformations,
@@ -14,35 +14,21 @@ import {
   TextInput,
 } from '../../components';
 import Type from '../../components/inputs/dateTimeInput/enums';
-import { ErrorMessage, Form, FormI, Id, Label, Pages } from '../../ts';
+import { Employee, ErrorMessage, Form, Id, Label, Pages } from '../../ts';
 import { checkAll } from '../../utils/form';
-
-const initialErrorMessage: ErrorMessage = {
-  cityErrorMessage: '',
-  dateOfBirthErrorMessage: '',
-  firstNameErrorMessage: '',
-  lastNameErrorMessage: '',
-  startDateErrorMessage: '',
-  streetErrorMessage: '',
-  zipCodeErrorMessage: '',
-};
-const initialValue: FormI = {
-  city: '',
-  dateOfBirth: '',
-  firstName: '',
-  lastName: '',
-  startDate: '',
-  street: '',
-  zipCode: '',
-  department: '',
-  state: '',
-};
+import initialValue from '../../assets/informations/initialValue';
+import initialErrorMessage from '../../assets/informations/initialErrorMessage';
+import { createEmployee, getEmployees } from '../../api/apiClient';
 
 const HomeMain = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [errorMessage, setErrorMessage] =
     useState<ErrorMessage>(initialErrorMessage);
-  const [values, setValues] = useState<FormI>(initialValue);
+  const [values, setValues] = useState<Employee>(initialValue);
+
+  // useEffect(() => {
+  //   getEmployees().then((res) => console.log(res));
+  // }, []);
 
   const initializeForm = () => {
     setValues(initialValue);
@@ -51,7 +37,7 @@ const HomeMain = () => {
   const handleSubmit = (e: React.FormEvent<Form>) => {
     e.preventDefault();
 
-    const checkAllErrorMessage = checkAll({
+    const employeeResponse = {
       firstName: values.firstName,
       lastName: values.lastName,
       street: values.street,
@@ -61,7 +47,9 @@ const HomeMain = () => {
       zipCode: values.zipCode,
       department: values.department,
       state: values.state,
-    });
+    };
+
+    const checkAllErrorMessage = checkAll(employeeResponse);
     setErrorMessage(checkAllErrorMessage);
 
     const allInputIsGood = Object.keys(checkAllErrorMessage).every(
@@ -69,22 +57,10 @@ const HomeMain = () => {
     );
 
     if (allInputIsGood) {
+      createEmployee(employeeResponse);
       setModalOpen(true);
       initializeForm();
     }
-
-    // eslint-disable-next-line no-console
-    console.log({
-      firstName: values.firstName,
-      lastName: values.lastName,
-      street: values.street,
-      city: values.city,
-      dateOfBirth: values.dateOfBirth,
-      startDate: values.startDate,
-      zipCode: values.zipCode,
-      department: values.department,
-      state: values.state,
-    });
   };
 
   const handleChange = (key: Id, value: string) => {
@@ -168,6 +144,7 @@ const HomeMain = () => {
                   (state) => `${state.abbreviation}, ${state.name}`
                 )}
                 handleChange={(value) => handleChange(Id.State, value)}
+                value={values.state}
               />
 
               <TextInput

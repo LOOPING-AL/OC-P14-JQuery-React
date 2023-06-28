@@ -1,4 +1,4 @@
-import { FormI } from '../ts';
+import { Employee } from '../ts';
 
 const isEmpty = (formInput: string) => formInput === '';
 const isEmptyMessage = 'The field is mandatory';
@@ -72,7 +72,7 @@ export const checkAll = ({
   dateOfBirth,
   startDate,
   zipCode,
-}: FormI) => {
+}: Employee) => {
   const firstNameErrorMessage = testName(firstName);
   const lastNameErrorMessage = testName(lastName);
   const streetErrorMessage = testName(street);
