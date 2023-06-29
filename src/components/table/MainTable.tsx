@@ -1,16 +1,16 @@
 import { useEffect, useState } from 'react';
 import {
-  addIndex,
-  ColumnNameAndOrderToShowType,
-  defaultProps,
+  ColumnNameAndOrderToShowTypeArray,
   Direction,
-  getColumns,
   MainTableProps,
-  sort,
   SortType,
+  addIndex,
+  defaultProps,
+  getColumns,
+  sortColumnType,
   style,
 } from '.';
-import { MainTableHeader, MainTableBody } from './component';
+import { MainTableBody, MainTableHeader } from './component';
 
 const Table = ({
   table,
@@ -20,23 +20,26 @@ const Table = ({
   columnNameAndOrderToShow,
 }: MainTableProps) => {
   const initialTable = addIndex(table);
-  const allColumns: ColumnNameAndOrderToShowType = columnNameAndOrderToShow
+  const allColumns: ColumnNameAndOrderToShowTypeArray = columnNameAndOrderToShow
     ? columnNameAndOrderToShow.sort((a, b) => a.order - b.order)
     : getColumns(table);
 
   const [tableToShow, setTableToShow] = useState(
     initialTable.slice(0, defaultNumberToshow)
   );
-  const [tableUpdate, setTableUpdate] = useState(initialTable);
+  const [tableUpdateLength, setTableUpdateLength] = useState(table.length);
   const [page, setPage] = useState(1);
   const [numberOfElementToShow, setNumberOfElementToShow] = useState(
     defaultNumberToshow || defaultProps.defaultNumberToshow
   );
   const [search, setSearch] = useState('');
+  const [sort, setSort] = useState<{ column: string; sortType: SortType }>({
+    column: allColumns[1].keyObject,
+    sortType: SortType.Up,
+  });
 
   const handleChangeElementToShow = (value: string) => {
     setNumberOfElementToShow(Number(value));
-
     setPage(1);
   };
 
@@ -50,49 +53,48 @@ const Table = ({
 
   const handleChangeSearch = (value: string) => {
     setSearch(value);
-    setTableUpdate(
-      table.filter((item) =>
-        Object.keys(item).some(
-          (k) =>
-            item[k] != null &&
-            item[k]?.toString().toLowerCase().includes(value.toLowerCase())
-        )
-      )
-    );
+    setPage(1);
   };
 
   const sortT = (column: string, sortType: SortType) => {
-    const tempTable = initialTable;
-    if (sortType === SortType.None) {
-      setTableUpdate(initialTable);
-    }
-    setTableUpdate(tempTable.sort((a, b) => sort(a, b, column, sortType)));
+    setSort({ column, sortType });
   };
 
   useEffect(() => {
     const indexOfFirstElementToShow = (page - 1) * numberOfElementToShow;
+    const indexOfLastElementToShow =
+      indexOfFirstElementToShow + numberOfElementToShow;
+
+    const tableUpdate = table
+      .filter((item) =>
+        Object.keys(item).some(
+          (k) =>
+            item[k] != null &&
+            item[k]?.toString().toLowerCase().includes(search.toLowerCase())
+        )
+      )
+      .sort((a, b) => sortColumnType(a, b, sort?.column, sort?.sortType));
 
     setTableToShow(
-      tableUpdate.slice(
-        indexOfFirstElementToShow,
-        indexOfFirstElementToShow + numberOfElementToShow
-      )
+      tableUpdate.slice(indexOfFirstElementToShow, indexOfLastElementToShow)
     );
-  }, [tableUpdate, page, numberOfElementToShow]);
+    setTableUpdateLength(tableUpdate.length);
+  }, [table, page, numberOfElementToShow, search, sort]);
 
   return (
     <div className={style.mainTable}>
       <MainTableHeader
         page={page}
-        numberOfElementToShow={numberOfElementToShow}
-        tableUpdate={tableUpdate}
         search={search}
-        handleChangeElementToShow={handleChangeElementToShow}
+        table={table}
+        tableUpdateLength={tableUpdateLength}
+        haveASearchField={haveASearchField}
+        entries={entries || defaultProps.entries}
+        numberOfElementToShow={numberOfElementToShow}
         handleClickPage={handleClickPage}
         handleSelectPage={handleSelectPage}
         handleChangeSearch={handleChangeSearch}
-        haveASearchField={haveASearchField}
-        entries={entries || defaultProps.entries}
+        handleChangeElementToShow={handleChangeElementToShow}
       />
       <MainTableBody
         allColumns={allColumns}

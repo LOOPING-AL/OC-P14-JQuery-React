@@ -3,24 +3,24 @@ import SelectInput from '../../inputs/selectInput/SelectInput';
 
 const ChangePage = ({
   page,
-  tableUpdate,
+  tableUpdateLength,
   numberOfElementToShow,
   handleClickPage,
   handleSelectPage,
 }: ChangePageProps) => (
-  <div className={style.tableHeaderPart}>
+  <div className={`${style.tableHeaderPart} ${style.tableHeaderLittlePart}`}>
     <button
       type="button"
       className={style.tableButton}
       onClick={() => handleClickPage(Direction.Left)}
-      disabled={page === 1}
+      disabled={page === 1 || tableUpdateLength === 0}
     >
       <span className={style.tableButtonText}>Previous</span>
     </button>
     <SelectInput
       id="page"
       options={Array.from(
-        { length: Math.ceil(tableUpdate.length / numberOfElementToShow) },
+        { length: Math.ceil(tableUpdateLength / numberOfElementToShow) },
         (_, i) => String(i + 1)
       )}
       width="60px"
@@ -31,7 +31,10 @@ const ChangePage = ({
       type="button"
       className={style.tableButton}
       onClick={() => handleClickPage(Direction.Right)}
-      disabled={page === Math.ceil(tableUpdate.length / numberOfElementToShow)}
+      disabled={
+        page === Math.ceil(tableUpdateLength / numberOfElementToShow) ||
+        tableUpdateLength === 0
+      }
     >
       <span className={style.tableButtonText}>Next</span>
     </button>

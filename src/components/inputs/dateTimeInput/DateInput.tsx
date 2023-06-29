@@ -1,5 +1,5 @@
 import defaultProps from './defaultProps';
-import Type from './enums';
+import InputType from './enums';
 import style from './MainDateTimeInput.module.css';
 import { DateInputProps } from './types';
 
@@ -13,7 +13,7 @@ const DateInput = ({
 }: DateInputProps) => (
   <input
     className={style.inputDateOrTime}
-    type={Type.DATE}
+    type={InputType.DATE}
     id={id}
     min={minDate}
     max={maxDate}

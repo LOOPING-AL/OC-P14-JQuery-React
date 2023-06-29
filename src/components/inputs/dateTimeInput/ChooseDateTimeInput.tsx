@@ -24,7 +24,7 @@ const ChooseDateTimeInput = ({
         minTime={minTime}
         maxTime={maxTime}
         required={required}
-        value={valueTime}
+        valueTime={valueTime}
         handleChangeTime={handleChangeTime}
       />
     );
@@ -36,7 +36,7 @@ const ChooseDateTimeInput = ({
         minDate={minDate}
         maxDate={maxDate}
         required={required}
-        value={valueDate}
+        valueDate={valueDate}
         handleChangeDate={handleChangeDate}
       />
     );

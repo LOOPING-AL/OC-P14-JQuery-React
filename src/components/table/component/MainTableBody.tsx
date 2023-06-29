@@ -50,7 +50,7 @@ const MainTableBody = ({
                 <MainTableBodyHeader
                   key={column.keyObject}
                   allColumns={allColumns}
-                  columnName={column.columnName}
+                  column={column}
                   sortType={sortTypes[column.keyObject]}
                   handleClick={handleClick}
                 />

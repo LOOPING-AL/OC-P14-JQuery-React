@@ -2,16 +2,16 @@ import { caretUp, MainTableBodyHeaderProps, SortType, style } from '..';
 
 const MainTableBodyHeader = ({
   allColumns,
-  columnName,
   sortType,
   handleClick,
+  column,
 }: MainTableBodyHeaderProps) => (
   <th
     style={{ width: `${100 / allColumns.length}%` }}
-    onClick={() => handleClick(columnName)}
+    onClick={() => handleClick(column.keyObject)}
   >
     <div className={style.columnHeader}>
-      <p>{columnName}</p>
+      <p>{column.columnName}</p>
       {sortType !== SortType.None && (
         <img
           src={caretUp}

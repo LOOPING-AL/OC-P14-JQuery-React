@@ -1,7 +1,7 @@
-enum Type {
+enum InputType {
   DATE = 'date',
   DATETIME = 'datetime',
   TIME = 'time',
 }
 
-export default Type;
+export default InputType;

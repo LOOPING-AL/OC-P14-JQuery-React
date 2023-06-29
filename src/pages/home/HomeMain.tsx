@@ -1,7 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { createEmployee } from '../../api/apiClient';
 import {
   department as departmentInformations,
+  initialErrorMessage,
+  initialValue,
   states,
   style,
 } from '../../assets';
@@ -12,19 +15,28 @@ import {
   Modal,
   SelectInput,
   TextInput,
+  InputType,
 } from '../../components';
-import Type from '../../components/inputs/dateTimeInput/enums';
-import { Employee, ErrorMessage, Form, Id, Label, Pages } from '../../ts';
+import {
+  Employee,
+  ErrorMessage,
+  Form,
+  Id,
+  Label,
+  ModalMessage,
+  Pages,
+} from '../../ts';
 import { checkAll } from '../../utils/form';
-import initialValue from '../../assets/informations/initialValue';
-import initialErrorMessage from '../../assets/informations/initialErrorMessage';
-import { createEmployee, getEmployees } from '../../api/apiClient';
 
 const HomeMain = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [errorMessage, setErrorMessage] =
     useState<ErrorMessage>(initialErrorMessage);
   const [values, setValues] = useState<Employee>(initialValue);
+  const [loader, setLoader] = useState(false);
+  const [modalMessage, setModalMessage] = useState<ModalMessage>(
+    ModalMessage.EmployeeCreated
+  );
 
   // useEffect(() => {
   //   getEmployees().then((res) => console.log(res));
@@ -57,9 +69,21 @@ const HomeMain = () => {
     );
 
     if (allInputIsGood) {
-      createEmployee(employeeResponse);
-      setModalOpen(true);
-      initializeForm();
+      setLoader(true);
+      setTimeout(() => {
+        createEmployee(employeeResponse).then((res) => {
+          if (res.statusCode === 201) {
+            setModalOpen(true);
+            initializeForm();
+            setModalMessage(ModalMessage.EmployeeCreated);
+            setLoader(false);
+          } else {
+            setModalOpen(true);
+            setModalMessage(ModalMessage.Troubles);
+            setLoader(false);
+          }
+        });
+      }, 1000);
     }
   };
 
@@ -99,20 +123,20 @@ const HomeMain = () => {
 
           <div className={style.formInputLine}>
             <MainDateTimeInput
-              type={Type.DATE}
+              type={InputType.DATE}
               id={Id.DateOfBirth}
               label={Label.DateOfBirth}
               errorMessage={errorMessage?.dateOfBirthErrorMessage}
-              value={values.dateOfBirth}
+              valueDate={values.dateOfBirth}
               handleChangeDate={(value) => handleChange(Id.DateOfBirth, value)}
             />
 
             <MainDateTimeInput
-              type={Type.DATETIME}
+              type={InputType.DATE}
               id={Id.StartDate}
               label={Label.StartDate}
               errorMessage={errorMessage?.startDateErrorMessage}
-              value={values.startDate}
+              valueDate={values.startDate}
               handleChangeDate={(value) => handleChange(Id.StartDate, value)}
             />
           </div>
@@ -165,14 +189,20 @@ const HomeMain = () => {
             handleChange={(value) => handleChange(Id.Department, value)}
           />
 
-          <Button label="Save" isSubmit />
+          <div className={style.footer}>
+            {loader ? (
+              <div className={style.loaderDualRing} />
+            ) : (
+              <Button label="Save" isSubmit />
+            )}
+          </div>
         </form>
       </div>
 
       <Modal
         open={modalOpen}
         handleClose={() => setModalOpen(false)}
-        title="Employee Created!"
+        title={modalMessage}
       />
     </div>
   );

@@ -1,4 +1,4 @@
-import { ColumnNameAndOrderToShowType, Table, TableElement } from '../ts';
+import { ColumnNameAndOrderToShowTypeArray, Table, TableElement } from '../ts';
 import { SortType } from '../ts/enums';
 
 export const idTable = 'idTable';
@@ -11,7 +11,7 @@ export const addIndex = (table: Table) =>
   });
 
 export const getColumns = (array: Table) => {
-  const columns: ColumnNameAndOrderToShowType = [];
+  const columns: ColumnNameAndOrderToShowTypeArray = [];
   array.map((element) =>
     Object.keys(element).map(
       (el, index) =>
@@ -22,7 +22,7 @@ export const getColumns = (array: Table) => {
   return columns;
 };
 
-export const sort = (
+export const sortColumnType = (
   a: TableElement,
   b: TableElement,
   column: string,

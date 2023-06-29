@@ -26,3 +26,8 @@ export enum Label {
   State = 'State',
   Department = 'Department',
 }
+
+export enum ModalMessage {
+  EmployeeCreated = 'Employee Created!',
+  Troubles = 'Trouble with application, please try later!',
+}

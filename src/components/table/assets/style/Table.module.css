@@ -29,6 +29,10 @@
   gap: 5px;
 }
 
+.tableHeaderLittlePart {
+  width: 60%;
+}
+
 .table {
   border-collapse: collapse;
   width: 100%;

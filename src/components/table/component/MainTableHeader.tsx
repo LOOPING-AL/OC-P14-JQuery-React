@@ -8,15 +8,16 @@ const MainTableHeader = ({
   entries,
   page,
   numberOfElementToShow,
-  tableUpdate,
+  table,
   search,
+  tableUpdateLength,
   handleChangeElementToShow,
   handleClickPage,
   handleSelectPage,
   handleChangeSearch,
 }: MainTableHeaderProps) => (
   <div className={style.tableHeader}>
-    <div className={style.tableHeaderPart}>
+    <div className={`${style.tableHeaderPart} ${style.tableHeaderLittlePart}`}>
       <p>Show</p>
       <SelectInput
         id="elementShow"
@@ -29,21 +30,35 @@ const MainTableHeader = ({
     </div>
 
     <div className={style.tableHeaderPart}>
-      <p>Showing to </p>
-      <p>{(page - 1) * numberOfElementToShow + 1}</p>
-      <p>to</p>
-      <p>
-        {page * numberOfElementToShow + 1 > tableUpdate.length
-          ? tableUpdate.length
-          : page * numberOfElementToShow + 1}
-      </p>
-      <p>of </p>
-      <p>{tableUpdate.length}</p>
+      {tableUpdateLength === 0 ? (
+        <p>No items</p>
+      ) : (
+        <>
+          <p>Showing to </p>
+          <p>{(page - 1) * numberOfElementToShow + 1}</p>
+          <p>to</p>
+          <p>
+            {page * numberOfElementToShow + 1 > tableUpdateLength
+              ? tableUpdateLength
+              : page * numberOfElementToShow + 1}
+          </p>
+          {tableUpdateLength !== table.length && (
+            <>
+              <p>of </p>
+              <p>{tableUpdateLength}</p>
+              <p>update</p>
+            </>
+          )}
+          <p>of </p>
+          <p>{table.length}</p>
+          <p>total</p>
+        </>
+      )}
     </div>
 
     <ChangePage
       page={page}
-      tableUpdate={tableUpdate}
+      tableUpdateLength={tableUpdateLength}
       numberOfElementToShow={numberOfElementToShow}
       handleClickPage={handleClickPage}
       handleSelectPage={handleSelectPage}
