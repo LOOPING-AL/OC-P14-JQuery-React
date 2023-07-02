@@ -17,6 +17,7 @@ const ChangePage = ({
     >
       <span className={style.tableButtonText}>Previous</span>
     </button>
+
     <SelectInput
       id="page"
       options={Array.from(
@@ -27,6 +28,7 @@ const ChangePage = ({
       handleChange={handleSelectPage}
       value={String(page)}
     />
+
     <button
       type="button"
       className={style.tableButton}

@@ -16,13 +16,13 @@ const MainTableBody = ({
     initialSortTypes
   );
 
-  const changeSortTypes = (cln: string, st: SortType) => {
+  const changeSortTypes = (column: string, sortType: SortType) => {
     setSortTypes(() => ({
       ...initialSortTypes,
-      ...{ [cln]: st },
+      ...{ [column]: sortType },
     }));
 
-    sort(cln, st);
+    sort({ column, sortType });
   };
 
   const handleClick = (column: string) => {
@@ -61,7 +61,8 @@ const MainTableBody = ({
 
       <tbody>
         {tableToShow.map((element) => (
-          <tr key={element[idTable] as string}>
+          // eslint-disable-next-line @typescript-eslint/dot-notation
+          <tr key={String(element['_id'])}>
             {allColumns.map(
               (column) =>
                 column.keyObject !== idTable && (

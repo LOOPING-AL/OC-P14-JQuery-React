@@ -38,10 +38,6 @@ const HomeMain = () => {
     ModalMessage.EmployeeCreated
   );
 
-  // useEffect(() => {
-  //   getEmployees().then((res) => console.log(res));
-  // }, []);
-
   const initializeForm = () => {
     setValues(initialValue);
   };

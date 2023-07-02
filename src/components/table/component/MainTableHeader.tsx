@@ -4,17 +4,17 @@ import TextInput from '../../inputs/textInput/TextInput';
 import ChangePage from './ChangePage';
 
 const MainTableHeader = ({
-  haveASearchField,
-  entries,
   page,
-  numberOfElementToShow,
-  table,
   search,
+  entries,
+  tableTotalLength,
+  haveASearchInput,
   tableUpdateLength,
-  handleChangeElementToShow,
+  numberOfElementToShow,
   handleClickPage,
   handleSelectPage,
   handleChangeSearch,
+  handleChangeElementToShow,
 }: MainTableHeaderProps) => (
   <div className={style.tableHeader}>
     <div className={`${style.tableHeaderPart} ${style.tableHeaderLittlePart}`}>
@@ -42,15 +42,17 @@ const MainTableHeader = ({
               ? tableUpdateLength
               : page * numberOfElementToShow + 1}
           </p>
-          {tableUpdateLength !== table.length && (
+
+          {tableUpdateLength !== tableTotalLength && (
             <>
               <p>of </p>
               <p>{tableUpdateLength}</p>
               <p>update</p>
             </>
           )}
+
           <p>of </p>
-          <p>{table.length}</p>
+          <p>{tableTotalLength}</p>
           <p>total</p>
         </>
       )}
@@ -64,7 +66,7 @@ const MainTableHeader = ({
       handleSelectPage={handleSelectPage}
     />
 
-    {haveASearchField && (
+    {haveASearchInput && (
       <div className={style.tableHeaderPart}>
         <p>Search</p>
         <TextInput

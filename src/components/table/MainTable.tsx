@@ -3,37 +3,36 @@ import {
   ColumnNameAndOrderToShowTypeArray,
   Direction,
   MainTableProps,
+  Sort,
   SortType,
-  addIndex,
   defaultProps,
   getColumns,
-  sortColumnType,
   style,
 } from '.';
 import { MainTableBody, MainTableHeader } from './component';
 
 const Table = ({
-  table,
-  haveASearchField,
+  haveASearchInput,
   entries,
   defaultNumberToshow,
   columnNameAndOrderToShow,
+  onChange,
 }: MainTableProps) => {
-  const initialTable = addIndex(table);
-  const allColumns: ColumnNameAndOrderToShowTypeArray = columnNameAndOrderToShow
-    ? columnNameAndOrderToShow.sort((a, b) => a.order - b.order)
-    : getColumns(table);
-
-  const [tableToShow, setTableToShow] = useState(
-    initialTable.slice(0, defaultNumberToshow)
-  );
-  const [tableUpdateLength, setTableUpdateLength] = useState(table.length);
+  const [allColumns, setAllColumns] =
+    useState<ColumnNameAndOrderToShowTypeArray>(
+      columnNameAndOrderToShow
+        ? columnNameAndOrderToShow.sort((a, b) => a.order - b.order)
+        : []
+    );
+  const [tableToShow, setTableToShow] = useState([]);
+  const [tableUpdateLength, setTableUpdateLength] = useState(0);
+  const [tableTotalLength, setTableTotalLength] = useState(0);
   const [page, setPage] = useState(1);
   const [numberOfElementToShow, setNumberOfElementToShow] = useState(
     defaultNumberToshow || defaultProps.defaultNumberToshow
   );
   const [search, setSearch] = useState('');
-  const [sort, setSort] = useState<{ column: string; sortType: SortType }>({
+  const [sort, setSort] = useState<Sort>({
     column: allColumns[1].keyObject,
     sortType: SortType.Up,
   });
@@ -56,39 +55,36 @@ const Table = ({
     setPage(1);
   };
 
-  const sortT = (column: string, sortType: SortType) => {
-    setSort({ column, sortType });
+  const sortT = (sortValue: Sort) => {
+    setSort(sortValue);
   };
 
   useEffect(() => {
-    const indexOfFirstElementToShow = (page - 1) * numberOfElementToShow;
-    const indexOfLastElementToShow =
-      indexOfFirstElementToShow + numberOfElementToShow;
-
-    const tableUpdate = table
-      .filter((item) =>
-        Object.keys(item).some(
-          (k) =>
-            item[k] != null &&
-            item[k]?.toString().toLowerCase().includes(search.toLowerCase())
-        )
-      )
-      .sort((a, b) => sortColumnType(a, b, sort?.column, sort?.sortType));
-
-    setTableToShow(
-      tableUpdate.slice(indexOfFirstElementToShow, indexOfLastElementToShow)
-    );
-    setTableUpdateLength(tableUpdate.length);
-  }, [table, page, numberOfElementToShow, search, sort]);
+    onChange({ page, numberOfElementToShow, search, sort }).then((res) => {
+      setTableToShow(res.body.tableToShow);
+      setTableUpdateLength(res.body.tableUpdateLength);
+      setTableTotalLength(res.body.tableTotalLength);
+      if (!columnNameAndOrderToShow) {
+        setAllColumns(getColumns(res.body.tableToShow));
+      }
+    });
+  }, [
+    onChange,
+    page,
+    numberOfElementToShow,
+    search,
+    sort,
+    columnNameAndOrderToShow,
+  ]);
 
   return (
     <div className={style.mainTable}>
       <MainTableHeader
         page={page}
         search={search}
-        table={table}
         tableUpdateLength={tableUpdateLength}
-        haveASearchField={haveASearchField}
+        tableTotalLength={tableTotalLength}
+        haveASearchInput={haveASearchInput}
         entries={entries || defaultProps.entries}
         numberOfElementToShow={numberOfElementToShow}
         handleClickPage={handleClickPage}
@@ -99,7 +95,7 @@ const Table = ({
       <MainTableBody
         allColumns={allColumns}
         tableToShow={tableToShow}
-        sort={(cln, st) => sortT(cln, st)}
+        sort={(sortValue) => sortT(sortValue)}
       />
     </div>
   );

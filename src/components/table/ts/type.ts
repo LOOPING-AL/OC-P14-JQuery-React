@@ -1,11 +1,16 @@
 import { Direction, SortType } from './enums';
 
 export interface MainTableProps {
-  table: Table;
-  haveASearchField?: boolean;
+  haveASearchInput?: boolean;
   entries?: string[];
   defaultNumberToshow?: number;
   columnNameAndOrderToShow?: ColumnNameAndOrderToShowTypeArray | undefined;
+  onChange: (params: {
+    page: number;
+    numberOfElementToShow: number;
+    search: string;
+    sort: Sort;
+  }) => Promise<any>;
 }
 
 export type ColumnNameAndOrderToShowTypeArray = ColumnNameAndOrderToShowType[];
@@ -17,11 +22,11 @@ export type ColumnNameAndOrderToShowType = {
 };
 
 export interface MainTableHeaderProps {
-  haveASearchField?: boolean;
+  haveASearchInput?: boolean;
   entries: string[];
   page: number;
   numberOfElementToShow: number;
-  table: Table;
+  tableTotalLength: number;
   search: string;
   tableUpdateLength: number;
   handleChangeElementToShow: (value: string) => void;
@@ -33,7 +38,7 @@ export interface MainTableHeaderProps {
 export interface MainTableBodyProps {
   allColumns: ColumnNameAndOrderToShowTypeArray;
   tableToShow: Table;
-  sort: (column: string, sortType: SortType) => void;
+  sort: (sortValue: Sort) => void;
 }
 
 export interface MainTableBodyHeaderProps {
@@ -53,6 +58,9 @@ export interface ChangePageProps {
 
 export type TableElement = {
   [key: string]: string | number | undefined | Date;
+  id: string;
 };
 
 export type Table = TableElement[];
+
+export type Sort = { column: string; sortType: SortType };
