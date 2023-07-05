@@ -10,6 +10,8 @@ import {
   style,
 } from '.';
 import { MainTableBody, MainTableHeader } from './component';
+import Modal from '../modal/Modal';
+import { ModalMessage } from '../../ts';
 
 const Table = ({
   haveASearchInput,
@@ -36,6 +38,7 @@ const Table = ({
     column: allColumns[1].keyObject,
     sortType: SortType.Up,
   });
+  const [modalOpen, setModalOpen] = useState(false);
 
   const handleChangeElementToShow = (value: string) => {
     setNumberOfElementToShow(Number(value));
@@ -60,7 +63,12 @@ const Table = ({
   };
 
   useEffect(() => {
-    onChange({ page, numberOfElementToShow, search, sort }).then((res) => {
+    onChange({ page, numberOfElementToShow, search, sort }).then((res: any) => {
+      if (res === undefined) {
+        setModalOpen(true);
+        return;
+      }
+
       setTableToShow(res.body.tableToShow);
       setTableUpdateLength(res.body.tableUpdateLength);
       setTableTotalLength(res.body.tableTotalLength);
@@ -96,6 +104,11 @@ const Table = ({
         allColumns={allColumns}
         tableToShow={tableToShow}
         sort={(sortValue) => sortT(sortValue)}
+      />
+      <Modal
+        title={ModalMessage.Troubles}
+        open={modalOpen}
+        handleClose={() => setModalOpen(false)}
       />
     </div>
   );
