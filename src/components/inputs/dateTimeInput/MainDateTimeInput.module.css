@@ -8,7 +8,7 @@
 }
 
 .label {
-  color: white;
+  color: rgb(0, 0, 0);
 }
 .inputDateAndTime {
   display: flex;
@@ -22,7 +22,7 @@
   font-family: Roboto;
   padding: 5px;
   font-size: 18px;
-  border: none;
+  border: solid 1px;
   outline: none;
   border-radius: 3px;
 }

@@ -4,19 +4,19 @@
 }
 
 .label {
-  color: white;
+  color: rgb(0, 0, 0);
 }
 
 select {
   width: 250px;
-  height: 30px;
+  height: 32px;
   background-color: white;
   font-family: Roboto;
   padding: 5px;
   font-size: 18px;
-  border: none;
   outline: none;
   border-radius: 3px;
+  border: solid 1px;
 }
 option {
   font-family: 'Roboto';

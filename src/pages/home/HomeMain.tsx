@@ -43,6 +43,7 @@ const HomeMain = () => {
   };
 
   const handleSubmit = (e: React.FormEvent<Form>) => {
+    setLoader(true);
     e.preventDefault();
 
     const employeeResponse = {
@@ -65,22 +66,20 @@ const HomeMain = () => {
     );
 
     if (allInputIsGood) {
-      setLoader(true);
       setTimeout(() => {
         createEmployee(employeeResponse).then((res) => {
           if (res.statusCode === 201) {
             setModalOpen(true);
             initializeForm();
             setModalMessage(ModalMessage.EmployeeCreated);
-            setLoader(false);
           } else {
             setModalOpen(true);
             setModalMessage(ModalMessage.Troubles);
-            setLoader(false);
           }
         });
-      }, 1000);
-    }
+        setLoader(false);
+      }, 2000);
+    } else setLoader(false);
   };
 
   const handleChange = (key: Id, value: string) => {
@@ -165,6 +164,7 @@ const HomeMain = () => {
                 )}
                 handleChange={(value) => handleChange(Id.State, value)}
                 value={values.state}
+                width="262px"
               />
 
               <TextInput
