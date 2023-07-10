@@ -68,13 +68,12 @@ const HomeMain = () => {
     if (allInputIsGood) {
       setTimeout(() => {
         createEmployee(employeeResponse).then((res) => {
-          if (res.statusCode === 201) {
-            setModalOpen(true);
+          setModalOpen(true);
+          if (res === undefined) {
+            setModalMessage(ModalMessage.Troubles);
+          } else if (res.statusCode === 201) {
             initializeForm();
             setModalMessage(ModalMessage.EmployeeCreated);
-          } else {
-            setModalOpen(true);
-            setModalMessage(ModalMessage.Troubles);
           }
         });
         setLoader(false);
