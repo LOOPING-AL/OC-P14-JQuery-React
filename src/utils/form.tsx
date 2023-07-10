@@ -3,7 +3,7 @@ import { Employee } from '../ts';
 const isEmpty = (formInput: string) => formInput === '';
 const isEmptyMessage = 'The field is mandatory';
 
-export const testName = (formInput: string) => {
+const testName = (formInput: string) => {
   if (isEmpty(formInput)) return isEmptyMessage;
 
   let message = '';
@@ -24,34 +24,7 @@ export const testName = (formInput: string) => {
   return message;
 };
 
-const dayDiff = (d1: Date, d2: Date) =>
-  Math.ceil((Number(d1) - Number(d2)) / (1000 * 60 * 60 * 24));
-
-export const testDate = (formInput: string) => {
-  if (isEmpty(formInput)) return isEmptyMessage;
-
-  let message = '';
-  const dayDiffConst = dayDiff(new Date(), new Date(formInput));
-  if (
-    /^[0-9]{4}-(((0)[0-9])|((1)[0-2]))-([0-2][0-9]|(3)[0-1])$/g.test(
-      formInput
-    ) &&
-    dayDiffConst / 365 > 13 &&
-    dayDiffConst / 365 <= 120
-  ) {
-    return true;
-  }
-  if (dayDiffConst < 0) {
-    message = 'The date is after the current date.';
-  } else if (dayDiffConst / 365 <= 13) {
-    message = 'An employee must be 15 years old.';
-  } else if (dayDiffConst / 365 > 80) {
-    message = 'An employee cannot be over 80.';
-  }
-  return message;
-};
-
-export const testZipCode = (formInput: string) => {
+const testZipCode = (formInput: string) => {
   if (isEmpty(formInput)) return isEmptyMessage;
 
   let message = '';
@@ -64,7 +37,7 @@ export const testZipCode = (formInput: string) => {
   return message;
 };
 
-export const checkAll = ({
+const checkAll = ({
   city,
   firstName,
   lastName,
@@ -91,3 +64,5 @@ export const checkAll = ({
     startDateErrorMessage,
   };
 };
+
+export default checkAll;

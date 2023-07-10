@@ -26,7 +26,7 @@ import {
   ModalMessage,
   Pages,
 } from '../../ts';
-import { checkAll } from '../../utils/form';
+import checkAll from '../../utils/form';
 
 const HomeMain = () => {
   const [modalOpen, setModalOpen] = useState(false);
